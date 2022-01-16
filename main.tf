@@ -41,6 +41,10 @@ resource "hcloud_server" "node" {
   name        = "node${count.index}"
   image       = "centos-7"
   server_type = "cx11"
+  network {
+    network_id = hcloud_network.network.id
+    ip         = "10.10.10.${count.index}"
+  }
   depends_on = [
     hcloud_network_subnet.network-subnet-management
   ]
