@@ -50,16 +50,11 @@ resource "hcloud_server" "node" {
   name        = "node${count.index + 1}"
   image       = "centos-7"
   server_type = "cx11"
-  network {
-    network_id = hcloud_network.network-management.id
-    ip         = "10.10.0.0.${count.index + 1}"
-  }
-  # network {
-  #   network_id = hcloud_network.network-intranet-1.id
-  #   ip         = "10.100.0.${count.index + 1}"
-  # }
-  depends_on = [
-    hcloud_network_subnet.network-subnet-management,
-    # hcloud_network_subnet.network-subnet-intranet-1
-  ]
+}
+
+resource "hcloud_server_network" "network-management" {
+  count       = 3
+  server_id  = hcloud_server.node${count.index + 1}.id
+  network_id = hcloud_network.network-management.id
+  ip         = "10.10.0.${count.index + 1}"
 }
