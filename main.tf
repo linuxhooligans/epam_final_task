@@ -11,16 +11,16 @@ provider "hcloud" {
   token = var.hcloud_token
 }
 
-resource "hcloud_network" "network" {
+resource "hcloud_network" "network-management" {
   name     = "management"
   ip_range = "10.10.10.0/24"
 }
-resource "hcloud_network" "network" {
-  name     = "intranet_1"
+resource "hcloud_network" "network-intranet-1" {
+  name     = "intranet-1"
   ip_range = "10.100.0.0/24"
 }
-resource "hcloud_network" "network" {
-  name     = "intranet_2"
+resource "hcloud_network" "network-intranet-2" {
+  name     = "intranet-2"
   ip_range = "10.200.0.0/24"
 }
 
