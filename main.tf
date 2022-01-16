@@ -12,7 +12,8 @@ provider "hcloud" {
 }
 
 resource "hcloud_server" "node1" {
-  name        = "node1"
+  count       = 3
+  name        = "node${count.index}"
   image       = "debian-10"
   server_type = "cx11"
 }
