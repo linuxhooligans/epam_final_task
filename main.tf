@@ -42,8 +42,6 @@ resource "hcloud_server" "node" {
   image       = "centos-7"
   server_type = "cx11"
   depends_on = [
-    hcloud_network_subnet.network-subnet-management,
-    hcloud_network_subnet.network-subnet-intranet-1,
-    hcloud_network_subnet.network-subnet-intranet-2
+    hcloud_network_subnet.network-subnet-management
   ]
 }
