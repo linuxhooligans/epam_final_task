@@ -54,7 +54,7 @@ resource "hcloud_server" "node" {
 
 resource "hcloud_server_network" "network-management" {
   count       = 3
-  server_id  = "hcloud_server.node${count.index + 1}.id"
+  server_id  = hcloud_server.node.id
   network_id = hcloud_network.network-management.id
   ip         = "10.10.0.${count.index + 1}"
 }
