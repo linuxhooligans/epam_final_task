@@ -38,12 +38,12 @@ resource "hcloud_network_subnet" "network-subnet-intranet-2" {
 
 resource "hcloud_server" "node" {
   count       = 3
-  name        = "node${count.index}"
+  name        = "node${count.index + 1}"
   image       = "centos-7"
   server_type = "cx11"
   network {
     network_id = hcloud_network.network.id
-    ip         = "10.10.10.${count.index}"
+    ip         = "10.10.10.${count.index + 1}"
   }
   depends_on = [
     hcloud_network_subnet.network-subnet-management
