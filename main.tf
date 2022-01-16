@@ -11,9 +11,9 @@ provider "hcloud" {
   token = var.hcloud_token
 }
 
-resource "hcloud_server" "node1" {
+resource "hcloud_server" "node" {
   count       = 3
   name        = "node${count.index}"
-  image       = "debian-10"
+  image       = "centos-7"
   server_type = "cx11"
 }
