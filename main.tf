@@ -44,28 +44,35 @@ resource "hcloud_network_subnet" "network-subnet-intranet-2" {
   ip_range     = "10.200.0.0/24"
 }
 
+# resource "hcloud_server" "node" {
+#   count       = 3
+#   name        = "node${count.index + 1}"
+#   image       = "centos-7"
+#   server_type = "cx11"
+# }
+
 resource "hcloud_server" "node" {
-  count       = 3
-  name        = "node${count.index + 1}"
+  for_each    = var.hostname
+  name        = each.value
   image       = "centos-7"
   server_type = "cx11"
 }
 
-resource "hcloud_server_network" "network-management" {
-  count       = 3
-  server_id  = hcloud_server.node[count.index].id
-  network_id = hcloud_network.network-management.id
-  ip         = "10.10.0.${count.index + 10}"
-}
-resource "hcloud_server_network" "network-intranet-1" {
-  count       = 3
-  server_id  = hcloud_server.node[count.index].id
-  network_id = hcloud_network.network-intranet-1.id
-  ip         = "10.100.0.${count.index + 10}"
-}
-resource "hcloud_server_network" "network-intranet-2" {
-  count       = 3
-  server_id  = hcloud_server.node[count.index].id
-  network_id = hcloud_network.network-intranet-2.id
-  ip         = "10.200.0.${count.index + 10}"
-}
+# resource "hcloud_server_network" "network-management" {
+#   count       = 3
+#   server_id  = hcloud_server.node[count.index].id
+#   network_id = hcloud_network.network-management.id
+#   ip         = "10.10.0.${count.index + 10}"
+# }
+# resource "hcloud_server_network" "network-intranet-1" {
+#   count       = 3
+#   server_id  = hcloud_server.node[count.index].id
+#   network_id = hcloud_network.network-intranet-1.id
+#   ip         = "10.100.0.${count.index + 10}"
+# }
+# resource "hcloud_server_network" "network-intranet-2" {
+#   count       = 3
+#   server_id  = hcloud_server.node[count.index].id
+#   network_id = hcloud_network.network-intranet-2.id
+#   ip         = "10.200.0.${count.index + 10}"
+# }
