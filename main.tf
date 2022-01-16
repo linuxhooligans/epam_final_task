@@ -60,7 +60,7 @@ resource "hcloud_server" "node" {
 
 resource "hcloud_server_network" "network-management" {
   for_each   = var.hostname
-  server_id  = hcloud_server.each.value.id
+  server_id  = hcloud_server.[each.value].id
   network_id = hcloud_network.network-management.id
   ip         = "10.10.0.${index(each.value) +10}"
 }
