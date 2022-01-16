@@ -58,12 +58,13 @@ resource "hcloud_server" "node" {
   server_type = "cx11"
 }
 
-# resource "hcloud_server_network" "network-management" {
-#   count       = 3
-#   server_id  = hcloud_server.node[count.index].id
-#   network_id = hcloud_network.network-management.id
-#   ip         = "10.10.0.${count.index + 10}"
-# }
+resource "hcloud_server_network" "network-management" {
+  for_each   = var.hostname
+  count      = 3
+  server_id  = hcloud_server.each.value.id
+  network_id = hcloud_network.network-management.id
+  ip         = "10.10.0.${count.index + 10}"
+}
 # resource "hcloud_server_network" "network-intranet-1" {
 #   count       = 3
 #   server_id  = hcloud_server.node[count.index].id
